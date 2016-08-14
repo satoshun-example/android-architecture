@@ -1,11 +1,17 @@
 package com.github.satoshun_example.architecture.main;
 
-interface MainContract {
-    interface View {
-    }
+import com.github.satoshun_example.architecture.data.user.User;
 
-    interface Presenter {
-        void subscribe();
-        void unsubscribe();
-    }
+interface MainContract {
+  interface View {
+    void showUser(User user);
+
+    void showUserError();
+  }
+
+  interface Presenter {
+    void subscribe();
+
+    void unsubscribe();
+  }
 }
