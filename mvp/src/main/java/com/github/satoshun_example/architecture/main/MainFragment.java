@@ -2,6 +2,7 @@ package com.github.satoshun_example.architecture.main;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,15 +45,15 @@ public class MainFragment extends Fragment implements MainContract.View {
     return binding.getRoot();
   }
 
-  @Override public void showUser(User user) {
-    binding.name.setText(String.valueOf(user.getId()));
-    binding.name.setVisibility(View.VISIBLE);
+  @Override public void showUser(@NonNull User user) {
+    binding.setUser(user);
 
+    binding.name.setVisibility(View.VISIBLE);
     binding.errorMessage.setVisibility(View.GONE);
   }
 
   @Override public void showUserError() {
-    binding.name.setVisibility(View.GONE);
+    binding.setUser(null);
 
     binding.errorMessage.setVisibility(View.VISIBLE);
     binding.errorMessage.setText("failed load user");

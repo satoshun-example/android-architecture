@@ -21,7 +21,7 @@ public class UserRemoteDataSource implements UserDataSource {
   static {
     data = new ArrayList<>();
     for (int i = 0; i < 1000; i++) {
-      data.add(new User(i));
+      data.add(new User(i, "name:" + i, (i + 10) % 80));
     }
   }
 
