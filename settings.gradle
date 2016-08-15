@@ -1,2 +1,2 @@
-include ':app'
+include ':mvp'
 include ':data'
