@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.github.satoshun_example.architecture.R;
 import com.github.satoshun_example.architecture.data.user.UserRepository;
+import com.github.satoshun_example.architecture.data.user.local.UserLocalDataSource;
 import com.github.satoshun_example.architecture.data.user.remote.UserRemoteDataSource;
 import com.github.satoshun_example.architecture.databinding.MainActBinding;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   private UserRepository provideUserRepository() {
-    return new UserRepository(new UserRemoteDataSource());
+    return new UserRepository(new UserLocalDataSource(), new UserRemoteDataSource());
   }
 
   @Override
