@@ -3,13 +3,11 @@ package com.github.satoshun_example.architecture.main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.github.satoshun_example.architecture.R;
 import com.github.satoshun_example.architecture.data.user.UserRepository;
@@ -27,14 +25,6 @@ public class MainActivity extends AppCompatActivity
     binding = DataBindingUtil.setContentView(this, R.layout.main_act);
 
     setSupportActionBar(binding.app.toolbar);
-
-    binding.app.fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-      }
-    });
 
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, binding.drawerLayout, binding.app.toolbar,

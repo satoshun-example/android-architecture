@@ -11,13 +11,12 @@ import rx.Observable;
 
 public class UserRemoteDataSource implements UserDataSource {
 
-    @NonNull
-    @Override
-    public Observable<User> getUser(int id) {
-        User user = new User(id);
+  @NonNull
+  @Override public Observable<User> getUser(int id) {
+    User user = new User(id);
 
-        // simulate network access
-        return Observable.just(user)
-                .delay(2000, TimeUnit.MILLISECONDS);
-    }
+    // simulate network access
+    return Observable.just(user)
+            .delay(2000, TimeUnit.MILLISECONDS);
+  }
 }
