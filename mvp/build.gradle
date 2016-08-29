@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "com.github.satoshun_example.architecture"
+        applicationId "com.github.satoshun.example.architecture"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -25,11 +26,16 @@ android {
 dependencies {
     compile project(":data")
 
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
-    compile 'io.reactivex:rxjava:1.1.8'
-    compile 'io.reactivex:rxandroid:1.2.0'
+    compile rootProject.ext.dart
+    provided rootProject.ext.dartProcessor
+    compile rootProject.ext.henson
+    provided rootProject.ext.hensonProcessor
+
+    compile rootProject.ext.androidSupportAppcompat
+    compile rootProject.ext.androidSupportDesign
+
+    compile rootProject.ext.rxJava
+    compile rootProject.ext.rxAndroid
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
