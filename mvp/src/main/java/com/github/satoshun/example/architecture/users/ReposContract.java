@@ -8,11 +8,17 @@ interface ReposContract {
 
   interface View {
     void renderRepos(List<Repo> repos);
+
+    void showProgressIndicator();
+
+    void hideProgressIndicator();
   }
 
   interface Presenter {
     void subscribe();
 
     void unsubscribe();
+
+    void refresh();
   }
 }

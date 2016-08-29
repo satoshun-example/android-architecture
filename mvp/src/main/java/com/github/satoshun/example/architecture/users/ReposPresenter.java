@@ -29,14 +29,24 @@ class ReposPresenter implements ReposContract.Presenter, Observer<List<Repo>> {
   }
 
   @Override public void subscribe() {
-    subscriptions.add(dataSource.getRepositories(DEFAULT_USER)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(this));
+    fetchData();
   }
 
   @Override public void unsubscribe() {
     subscriptions.clear();
+  }
+
+  @Override public void refresh() {
+    subscriptions.clear();
+    fetchData();
+  }
+
+  private void fetchData() {
+    view.showProgressIndicator();
+    subscriptions.add(dataSource.getRepositories(DEFAULT_USER)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(this));
   }
 
   @Override public void onCompleted() {
@@ -44,9 +54,13 @@ class ReposPresenter implements ReposContract.Presenter, Observer<List<Repo>> {
 
   @Override public void onError(Throwable e) {
     Log.e(TAG, String.valueOf(e));
+    view.hideProgressIndicator();
+
+    // TODO: send error message to View
   }
 
   @Override public void onNext(List<Repo> repos) {
     view.renderRepos(repos);
+    view.hideProgressIndicator();
   }
 }

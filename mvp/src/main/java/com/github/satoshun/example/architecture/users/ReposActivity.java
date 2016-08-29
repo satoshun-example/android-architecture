@@ -11,7 +11,6 @@ import com.github.satoshun.example.architecture.databinding.ReposActBinding;
 
 public class ReposActivity extends AppCompatActivity {
 
-
   private ReposActBinding binding;
   private ReposPresenter presenter;
 
@@ -20,7 +19,6 @@ public class ReposActivity extends AppCompatActivity {
     binding = DataBindingUtil.setContentView(this, R.layout.repos_act);
 
     setSupportActionBar(binding.toolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     ReposFragment fragment = (ReposFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
     if (fragment == null) {

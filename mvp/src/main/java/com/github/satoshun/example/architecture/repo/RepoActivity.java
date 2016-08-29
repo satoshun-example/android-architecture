@@ -29,7 +29,6 @@ public class RepoActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     Dart.inject(this);
 
     binding = DataBindingUtil.setContentView(this, R.layout.repo_act);
@@ -43,6 +42,6 @@ public class RepoActivity extends AppCompatActivity {
               .add(R.id.content_frame, fragment)
               .commit();
     }
-    // TODO
+    fragment.setPresenter(new RepoPresenter(fragment, repo));
   }
 }

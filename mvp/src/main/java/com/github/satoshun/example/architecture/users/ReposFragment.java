@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.github.satoshun.example.architecture.data.repo.Repo;
 import com.github.satoshun.example.architecture.databinding.RepoItemBinding;
 import com.github.satoshun.example.architecture.databinding.ReposFragBinding;
 import com.github.satoshun.example.architecture.repo.RepoActivity;
+import com.github.satoshun.example.architecture.util.RecyclerViewDivider;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,24 +52,41 @@ public class ReposFragment extends Fragment implements ReposContract.View {
     super.onViewCreated(view, savedInstanceState);
     adapter = new ReposAdapter(getContext());
     binding.content.setLayoutManager(new LinearLayoutManager(getActivity()));
+    binding.content.addItemDecoration(new RecyclerViewDivider(getContext(), LinearLayoutManager.VERTICAL));
     binding.content.setAdapter(adapter);
+
+    binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override public void onRefresh() {
+        presenter.refresh();
+      }
+    });
   }
 
   @Override public void onResume() {
     super.onResume();
-
     presenter.subscribe();
   }
 
   @Override public void onPause() {
     super.onPause();
-
     presenter.unsubscribe();
   }
 
   @Override public void renderRepos(List<Repo> repos) {
     adapter.setItems(repos);
     adapter.notifyDataSetChanged();
+  }
+
+  @Override public void showProgressIndicator() {
+    binding.swipe.post(new Runnable() {
+      @Override public void run() {
+        binding.swipe.setRefreshing(true);
+      }
+    });
+  }
+
+  @Override public void hideProgressIndicator() {
+    binding.swipe.setRefreshing(false);
   }
 
   void setPresenter(@NonNull ReposContract.Presenter presenter) {
